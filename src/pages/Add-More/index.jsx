@@ -34,7 +34,7 @@ function AddMore() {
       <Row align="middle" justify="center">
         <Typography.Title level={2}> Add More Example</Typography.Title>
       </Row>
-      <SourceCode value={`https://github.com/react-scheduler/react-big-schedule/blob/examples/src/examples/Add-More/${type}.jsx`} />
+      <SourceCode value={`https://github.com/react-scheduler/react-big-schedule/blob/examples/src/pages/Add-More/${type}.jsx`} />
       <Tabs activeKey={type} items={items} onChange={setType} />
     </>
   );
