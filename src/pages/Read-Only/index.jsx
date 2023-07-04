@@ -34,7 +34,7 @@ function ReadOnly() {
       <Row align="middle" justify="center">
         <Typography.Title level={2}> Read Only Example</Typography.Title>
       </Row>
-      <SourceCode value={`https://github.com/ansulagrawal/react-big-schedule/blob/master/src/examples/Read-Only/${type}.jsx`} />
+      <SourceCode value={`https://github.com/react-scheduler/react-big-schedule/blob/examples/src/examples/Read-Only/${type}.jsx`} />
       <Tabs activeKey={type} items={items} onChange={setType} />
     </>
   );

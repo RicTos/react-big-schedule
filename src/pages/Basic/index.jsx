@@ -34,7 +34,7 @@ function Basic() {
       <Row align="middle" justify="center">
         <Typography.Title level={2}> Basic Example</Typography.Title>
       </Row>
-      <SourceCode value={`https://github.com/ansulagrawal/react-big-schedule/blob/master/src/examples/Basic/${type}.jsx`} />
+      <SourceCode value={`https://github.com/react-scheduler/react-big-schedule/blob/examples/src/examples/Basic/${type}.jsx`} />
       <Tabs activeKey={type} items={items} onChange={setType} />
     </>
   );
