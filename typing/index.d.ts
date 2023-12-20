@@ -1,9 +1,11 @@
 import { ConfigType, Dayjs, OptionType } from 'dayjs';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, FC } from 'react';
 
 export default class Scheduler<EventType extends EventItem = EventItem> extends React.Component<SchedulerProps<EventType>, any> {}
 
 export const AddMorePopover: <EventType extends EventItem = EventItem>(props: AddMorePopoverProps<EventType>) => React.ReactElement;
+
+export function wrapperFun<T>(Component: FC<T>): (props: T) => React.JSX.Element
 
 export interface SchedulerProps<EventType extends EventItem = EventItem> {
   schedulerData: SchedulerData<EventType>;
