@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import * as dayjsLocale from "dayjs/locale/pt-br";
+import * as dayjsLocale from "dayjs/locale/it";
 import * as antdLocale from "antd/locale/pt_BR";
 
 import Scheduler, {
@@ -32,7 +32,8 @@ class Basic extends Component {
         // dayStopTo: 10,
          minuteStep: 60,
         //  dayResourceTableWidth:10,
-         dayCellWidth: 60
+         dayCellWidth: 60,
+         nonAgendaWeekCellHeaderFormat: "ww/YYYY"
       }
     );
 

@@ -343,6 +343,9 @@ export interface SchedulerDataConfig {
   addMorePopoverHeaderFormat?: string;
   eventItemPopoverDateFormat?: string;
   nonAgendaDayCellHeaderFormat?: string;
+  nonAgendaWeekCellHeaderFormat?: string;
+  nonAgendaMonthCellHeaderFormat?: string;
+  nonAgendaYearCellHeaderFormat?: string;
   nonAgendaOtherCellHeaderFormat?: string;
   minuteStep?: number;
   views?: View[];
