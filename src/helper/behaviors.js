@@ -70,8 +70,8 @@ export const isNonWorkingTime = (schedulerData, time) => {
     const hour = localeDayjs(new Date(time)).hour();
     return hour < 9 || hour > 18;
   }
-  const dayOfWeek = localeDayjs(new Date(time)).weekday();
-  return dayOfWeek === 0 || dayOfWeek === 6;
+  const dayOfWeek = localeDayjs(new Date(time)).isoWeekday();
+  return dayOfWeek === 6 || dayOfWeek === 7;
 };
 
 export default {

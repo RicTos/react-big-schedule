@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import quarterOfYear from 'dayjs/plugin/quarterOfYear';
 import utc from 'dayjs/plugin/utc';
-import weekday from 'dayjs/plugin/weekday';
+import isoWeek from 'dayjs/plugin/isoWeek';
 import { RRuleSet, rrulestr } from 'rrule';
 import config from '../config/scheduler';
 import behaviors from '../helper/behaviors';
@@ -24,7 +24,7 @@ export default class SchedulerData {
 
     this.calendarPopoverLocale = undefined;
     dayjs.extend(quarterOfYear);
-    dayjs.extend(weekday);
+    dayjs.extend(isoWeek);
     dayjs.extend(utc);
     this.localeDayjs = dayjs;
     this.config = newConfig === undefined ? config : { ...config, ...newConfig };
@@ -697,7 +697,7 @@ export default class SchedulerData {
   //   } else if (this.cellUnit === CellUnit.Day) {
   //     while (header >= start && header <= end) {
   //       const time = header.format(DATETIME_FORMAT);
-  //       const dayOfWeek = header.weekday();
+  //       const dayOfWeek = header.isoWeekday();
   //       if (this.config.displayWeekend || (dayOfWeek !== 0 && dayOfWeek !== 6)) {
   //         const nonWorkingTime = this.behaviors.isNonWorkingTimeFunc(this, time);
   //         headers.push({ time, nonWorkingTime });
@@ -738,8 +738,8 @@ export default class SchedulerData {
       while (head >= start && head <= end) {
         const time = head.format(format);
         if (unit === CellUnit.Day) {
-          const dayOfWeek = head.weekday();
-          if (this.config.displayWeekend || (dayOfWeek !== 0 && dayOfWeek !== 6)) {
+          const dayOfWeek = head.isoWeekday();
+          if (this.config.displayWeekend || (dayOfWeek !== 6 && dayOfWeek !== 4)) {
             const nonWorkingTime = this.behaviors.isNonWorkingTimeFunc(this, time);
             headers.push({ time, nonWorkingTime });
           }

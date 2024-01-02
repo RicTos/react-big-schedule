@@ -28,6 +28,7 @@ class Basic extends Component {
         eventItemPopoverTrigger: "click",
         schedulerContentHeight: "350px",
         responsiveByParent: true,
+        
       }
     );
 
@@ -39,8 +40,6 @@ class Basic extends Component {
     this.state = {
       viewModel: schedulerData,
       mounted: false,
-      divWidth: undefined,
-      divHeight: undefined
     };
 
     this.divRef = createRef();
@@ -56,7 +55,7 @@ class Basic extends Component {
     return (
       <div
         ref={this.divRef}
-        style={{ width: 900, height: 600 }}
+        style={{ flex:1 }}
       >
         {this.state.mounted && (
           <Scheduler 
