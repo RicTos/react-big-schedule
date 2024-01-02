@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import AddMore from './AddMore';
@@ -17,26 +18,6 @@ class ResourceEvents extends Component {
     };
     this.supportTouch = false; // 'ontouchstart' in window;
   }
-
-  static propTypes = {
-    resourceEvents: PropTypes.object.isRequired,
-    schedulerData: PropTypes.object.isRequired,
-    dndSource: PropTypes.object.isRequired,
-    onSetAddMoreState: PropTypes.func,
-    updateEventStart: PropTypes.func,
-    updateEventEnd: PropTypes.func,
-    moveEvent: PropTypes.func,
-    movingEvent: PropTypes.func,
-    conflictOccurred: PropTypes.func,
-    subtitleGetter: PropTypes.func,
-    eventItemClick: PropTypes.func,
-    viewEventClick: PropTypes.func,
-    viewEventText: PropTypes.string,
-    viewEvent2Click: PropTypes.func,
-    viewEvent2Text: PropTypes.string,
-    newEvent: PropTypes.func,
-    eventItemTemplateResolver: PropTypes.func,
-  };
 
   componentDidMount() {
     const { schedulerData } = this.props;
@@ -270,6 +251,7 @@ class ResourceEvents extends Component {
   };
 
   render() {
+    // eslint-disable-next-line react/prop-types
     const { resourceEvents, schedulerData, connectDropTarget, dndSource } = this.props;
     const { cellUnit, startDate, endDate, config, localeDayjs } = schedulerData;
     const { isSelecting, left, width } = this.state;
@@ -299,8 +281,8 @@ class ResourceEvents extends Component {
             const eventEnd = localeDayjs(evt.eventItem.end);
             const isStart = eventStart >= durationStart;
             const isEnd = eventEnd <= durationEnd;
-            const left = index * cellWidth + (index > 0 ? 2 : 3);
-            const width = evt.span * cellWidth - (index > 0 ? 5 : 6) > 0 ? evt.span * cellWidth - (index > 0 ? 5 : 6) : 0;
+            const eLeft = index * cellWidth + (index > 0 ? 2 : 3);
+            const eWidth = evt.span * cellWidth - (index > 0 ? 5 : 6) > 0 ? evt.span * cellWidth - (index > 0 ? 5 : 6) : 0;
             const top = marginTop + idx * config.eventItemLineHeight;
             const eventItem = (
               <DnDEventItem
@@ -310,8 +292,8 @@ class ResourceEvents extends Component {
                 isStart={isStart}
                 isEnd={isEnd}
                 isInPopover={false}
-                left={left}
-                width={width}
+                left={eLeft}
+                width={eWidth}
                 top={top}
                 leftIndex={index}
                 rightIndex={index + evt.span}
@@ -322,8 +304,8 @@ class ResourceEvents extends Component {
         });
 
         if (headerItem.addMore > 0) {
-          const left = index * cellWidth + (index > 0 ? 2 : 3);
-          const width = cellWidth - (index > 0 ? 5 : 6);
+          const eLeft = index * cellWidth + (index > 0 ? 2 : 3);
+          const eWidth = cellWidth - (index > 0 ? 5 : 6);
           const top = marginTop + headerItem.addMoreIndex * config.eventItemLineHeight;
           const addMoreItem = (
             <AddMore
@@ -331,8 +313,8 @@ class ResourceEvents extends Component {
               key={headerItem.time}
               headerItem={headerItem}
               number={headerItem.addMore}
-              left={left}
-              width={width}
+              left={eLeft}
+              width={eWidth}
               top={top}
               clickAction={this.onAddMoreClick}
             />
@@ -342,10 +324,10 @@ class ResourceEvents extends Component {
 
         if (headerItem.summary !== undefined) {
           const top = isTop ? 1 : resourceEvents.rowHeight - config.eventItemLineHeight + 1;
-          const left = index * cellWidth + (index > 0 ? 2 : 3);
-          const width = cellWidth - (index > 0 ? 5 : 6);
+          const eLeft = index * cellWidth + (index > 0 ? 2 : 3);
+          const eWidth = cellWidth - (index > 0 ? 5 : 6);
           const key = `${resourceEvents.slotId}_${headerItem.time}`;
-          const summary = <Summary key={key} schedulerData={schedulerData} summary={headerItem.summary} left={left} width={width} top={top} />;
+          const summary = <Summary key={key} schedulerData={schedulerData} summary={headerItem.summary} left={eLeft} width={eWidth} top={top} />;
           eventList.push(summary);
         }
       }
@@ -364,5 +346,25 @@ class ResourceEvents extends Component {
     );
   }
 }
+
+ResourceEvents.propTypes = {
+  resourceEvents: PropTypes.object.isRequired,
+  schedulerData: PropTypes.object.isRequired,
+  dndSource: PropTypes.object.isRequired,
+  onSetAddMoreState: PropTypes.func,
+  updateEventStart: PropTypes.func,
+  updateEventEnd: PropTypes.func,
+  moveEvent: PropTypes.func,
+  movingEvent: PropTypes.func,
+  conflictOccurred: PropTypes.func,
+  subtitleGetter: PropTypes.func,
+  eventItemClick: PropTypes.func,
+  viewEventClick: PropTypes.func,
+  viewEventText: PropTypes.string,
+  viewEvent2Click: PropTypes.func,
+  viewEvent2Text: PropTypes.string,
+  newEvent: PropTypes.func,
+  eventItemTemplateResolver: PropTypes.func,
+};
 
 export default ResourceEvents;

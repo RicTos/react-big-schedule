@@ -441,6 +441,7 @@ class EventItem extends Component {
     }
 
     const a = (
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
       <a
         className="timeline-event"
         ref={this.eventItemRef}

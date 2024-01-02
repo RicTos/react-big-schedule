@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -65,46 +67,6 @@ class Scheduler extends Component {
     }
   }
 
-  onWindowResize = e => {
-    const { schedulerData } = this.props;
-    schedulerData._setDocumentWidth(document.documentElement.clientWidth);
-    this.setState({ documentWidth: document.documentElement.clientWidth, documentHeight: document.documentElement.clientHeight });
-  };
-
-  static propTypes = {
-    parentRef: PropTypes.object,
-    schedulerData: PropTypes.object.isRequired,
-    prevClick: PropTypes.func.isRequired,
-    nextClick: PropTypes.func.isRequired,
-    onViewChange: PropTypes.func.isRequired,
-    onSelectDate: PropTypes.func.isRequired,
-    onSetAddMoreState: PropTypes.func,
-    updateEventStart: PropTypes.func,
-    updateEventEnd: PropTypes.func,
-    moveEvent: PropTypes.func,
-    movingEvent: PropTypes.func,
-    leftCustomHeader: PropTypes.object,
-    rightCustomHeader: PropTypes.object,
-    newEvent: PropTypes.func,
-    subtitleGetter: PropTypes.func,
-    eventItemClick: PropTypes.func,
-    viewEventClick: PropTypes.func,
-    viewEventText: PropTypes.string,
-    viewEvent2Click: PropTypes.func,
-    viewEvent2Text: PropTypes.string,
-    conflictOccurred: PropTypes.func,
-    eventItemTemplateResolver: PropTypes.func,
-    dndSources: PropTypes.array,
-    slotClickedFunc: PropTypes.func,
-    toggleExpandFunc: PropTypes.func,
-    slotItemTemplateResolver: PropTypes.func,
-    nonAgendaCellHeaderTemplateResolver: PropTypes.func,
-    onScrollLeft: PropTypes.func,
-    onScrollRight: PropTypes.func,
-    onScrollTop: PropTypes.func,
-    onScrollBottom: PropTypes.func,
-  };
-
   componentDidMount() {
     const { schedulerData, parentRef } = this.props;
 
@@ -113,7 +75,7 @@ class Scheduler extends Component {
     if (parentRef !== undefined) {
       if (schedulerData.config.responsiveByParent && !!parentRef.current) {
         schedulerData._setDocumentWidth(parentRef.current.offsetWidth);
-        this.ulObserver = new ResizeObserver((entries, observer) => {
+        this.ulObserver = new ResizeObserver(() => {
           if (parentRef.current) {
             const width = parentRef.current.offsetWidth;
             const height = parentRef.current.offsetHeight;
@@ -144,7 +106,7 @@ class Scheduler extends Component {
           let index = 0;
           schedulerData.headers.forEach(item => {
             const header = localeDayjs(new Date(item.time));
-            if (specialDayjs >= header) index++;
+            if (specialDayjs >= header) index += 1;
           });
           this.schedulerContent.scrollLeft = (index - 1) * schedulerData.getContentCellWidth();
 
@@ -153,6 +115,154 @@ class Scheduler extends Component {
       }
     }
   }
+
+  onWindowResize = () => {
+    const { schedulerData } = this.props;
+    schedulerData._setDocumentWidth(document.documentElement.clientWidth);
+    this.setState({ documentWidth: document.documentElement.clientWidth, documentHeight: document.documentElement.clientHeight });
+  };
+
+  resolveScrollbarSize = () => {
+    let contentScrollbarHeight = 17;
+    let contentScrollbarWidth = 17;
+    let resourceScrollbarHeight = 17;
+    let resourceScrollbarWidth = 17;
+    if (this.schedulerContent) {
+      contentScrollbarHeight = this.schedulerContent.offsetHeight - this.schedulerContent.clientHeight;
+      contentScrollbarWidth = this.schedulerContent.offsetWidth - this.schedulerContent.clientWidth;
+    }
+    if (this.schedulerResource) {
+      resourceScrollbarHeight = this.schedulerResource.offsetHeight - this.schedulerResource.clientHeight;
+      resourceScrollbarWidth = this.schedulerResource.offsetWidth - this.schedulerResource.clientWidth;
+    }
+
+    let tmpState = {};
+    let needSet = false;
+    if (contentScrollbarHeight !== this.state.contentScrollbarHeight) {
+      tmpState = { ...tmpState, contentScrollbarHeight };
+      needSet = true;
+    }
+    if (contentScrollbarWidth !== this.state.contentScrollbarWidth) {
+      tmpState = { ...tmpState, contentScrollbarWidth };
+      needSet = true;
+    }
+    if (resourceScrollbarHeight !== this.state.resourceScrollbarHeight) {
+      tmpState = { ...tmpState, resourceScrollbarHeight };
+      needSet = true;
+    }
+    if (resourceScrollbarWidth !== this.state.resourceScrollbarWidth) {
+      tmpState = { ...tmpState, resourceScrollbarWidth };
+      needSet = true;
+    }
+    if (needSet) this.setState(tmpState);
+  };
+
+  schedulerHeadRef = element => {
+    this.schedulerHead = element;
+  };
+
+  onSchedulerHeadMouseOver = () => {
+    this.currentArea = 2;
+  };
+
+  onSchedulerHeadMouseOut = () => {
+    this.currentArea = -1;
+  };
+
+  onSchedulerHeadScroll = () => {
+    if ((this.currentArea === 2 || this.currentArea === -1) && this.schedulerContent.scrollLeft !== this.schedulerHead.scrollLeft) {
+      this.schedulerContent.scrollLeft = this.schedulerHead.scrollLeft;
+    }
+  };
+
+  schedulerResourceRef = element => {
+    this.schedulerResource = element;
+  };
+
+  onSchedulerResourceMouseOver = () => {
+    this.currentArea = 1;
+  };
+
+  onSchedulerResourceMouseOut = () => {
+    this.currentArea = -1;
+  };
+
+  onSchedulerResourceScroll = () => {
+    if (this.schedulerResource) {
+      if ((this.currentArea === 1 || this.currentArea === -1) && this.schedulerContent.scrollTop !== this.schedulerResource.scrollTop) {
+        this.schedulerContent.scrollTop = this.schedulerResource.scrollTop;
+      }
+    }
+  };
+
+  schedulerContentRef = element => {
+    this.schedulerContent = element;
+  };
+
+  schedulerContentBgTableRef = element => {
+    // eslint-disable-next-line react/no-unused-class-component-methods
+    this.schedulerContentBgTable = element;
+  };
+
+  onSchedulerContentMouseOver = () => {
+    this.currentArea = 0;
+  };
+
+  onSchedulerContentMouseOut = () => {
+    this.currentArea = -1;
+  };
+
+  onSchedulerContentScroll = () => {
+    if (this.schedulerResource) {
+      if (this.currentArea === 0 || this.currentArea === -1) {
+        if (this.schedulerHead.scrollLeft !== this.schedulerContent.scrollLeft) this.schedulerHead.scrollLeft = this.schedulerContent.scrollLeft;
+        if (this.schedulerResource.scrollTop !== this.schedulerContent.scrollTop) this.schedulerResource.scrollTop = this.schedulerContent.scrollTop;
+      }
+    }
+
+    const { schedulerData, onScrollLeft, onScrollRight, onScrollTop, onScrollBottom } = this.props;
+    if (this.schedulerContent.scrollLeft !== this.scrollLeft) {
+      if (this.schedulerContent.scrollLeft === 0 && onScrollLeft !== undefined) {
+        onScrollLeft(schedulerData, this.schedulerContent, this.schedulerContent.scrollWidth - this.schedulerContent.clientWidth);
+      }
+      if (Math.round(this.schedulerContent.scrollLeft) === this.schedulerContent.scrollWidth - this.schedulerContent.clientWidth && onScrollRight !== undefined) {
+        onScrollRight(schedulerData, this.schedulerContent, this.schedulerContent.scrollWidth - this.schedulerContent.clientWidth);
+      }
+    } else if (this.schedulerContent.scrollTop !== this.scrollTop) {
+      if (this.schedulerContent.scrollTop === 0 && onScrollTop !== undefined) {
+        onScrollTop(schedulerData, this.schedulerContent, this.schedulerContent.scrollHeight - this.schedulerContent.clientHeight);
+      }
+      if (Math.round(this.schedulerContent.scrollTop) === this.schedulerContent.scrollHeight - this.schedulerContent.clientHeight && onScrollBottom !== undefined) {
+        onScrollBottom(schedulerData, this.schedulerContent, this.schedulerContent.scrollHeight - this.schedulerContent.clientHeight);
+      }
+    }
+    this.scrollLeft = this.schedulerContent.scrollLeft;
+    this.scrollTop = this.schedulerContent.scrollTop;
+  };
+
+  onViewChange = e => {
+    const { onViewChange, schedulerData } = this.props;
+    const viewType = parseInt(e.target.value.charAt(0), 10);
+    const showAgenda = e.target.value.charAt(1) === '1';
+    const isEventPerspective = e.target.value.charAt(2) === '1';
+    onViewChange(schedulerData, { viewType, showAgenda, isEventPerspective });
+    this.setState(prevState => ({ ...prevState, spinning: false }));
+  };
+
+  goNext = () => {
+    const { nextClick, schedulerData } = this.props;
+    nextClick(schedulerData);
+  };
+
+  goBack = () => {
+    const { prevClick, schedulerData } = this.props;
+    prevClick(schedulerData);
+  };
+
+  onSelect = date => {
+    const { onSelectDate, schedulerData } = this.props;
+    onSelectDate(schedulerData, date);
+  };
 
   render() {
     const { schedulerData, leftCustomHeader, rightCustomHeader } = this.props;
@@ -232,6 +342,7 @@ class Scheduler extends Component {
               </div>
             </div>
           </td>
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <td>
             <div className="scheduler-view" style={{ width: schedulerContainerWidth, verticalAlign: 'top' }}>
               <div style={{ overflow: 'hidden', borderBottom: '1px solid #e9e9e9', height: config.tableHeaderHeight }}>
@@ -301,149 +412,41 @@ class Scheduler extends Component {
       </table>
     );
   }
-
-  resolveScrollbarSize = () => {
-    const { schedulerData } = this.props;
-    let contentScrollbarHeight = 17;
-    let contentScrollbarWidth = 17;
-    let resourceScrollbarHeight = 17;
-    let resourceScrollbarWidth = 17;
-    if (this.schedulerContent) {
-      contentScrollbarHeight = this.schedulerContent.offsetHeight - this.schedulerContent.clientHeight;
-      contentScrollbarWidth = this.schedulerContent.offsetWidth - this.schedulerContent.clientWidth;
-    }
-    if (this.schedulerResource) {
-      resourceScrollbarHeight = this.schedulerResource.offsetHeight - this.schedulerResource.clientHeight;
-      resourceScrollbarWidth = this.schedulerResource.offsetWidth - this.schedulerResource.clientWidth;
-    }
-
-    let tmpState = {};
-    let needSet = false;
-    if (contentScrollbarHeight !== this.state.contentScrollbarHeight) {
-      tmpState = { ...tmpState, contentScrollbarHeight };
-      needSet = true;
-    }
-    if (contentScrollbarWidth !== this.state.contentScrollbarWidth) {
-      tmpState = { ...tmpState, contentScrollbarWidth };
-      needSet = true;
-    }
-    if (resourceScrollbarHeight !== this.state.resourceScrollbarHeight) {
-      tmpState = { ...tmpState, resourceScrollbarHeight };
-      needSet = true;
-    }
-    if (resourceScrollbarWidth !== this.state.resourceScrollbarWidth) {
-      tmpState = { ...tmpState, resourceScrollbarWidth };
-      needSet = true;
-    }
-    if (needSet) this.setState(tmpState);
-  };
-
-  schedulerHeadRef = element => {
-    this.schedulerHead = element;
-  };
-
-  onSchedulerHeadMouseOver = () => {
-    this.currentArea = 2;
-  };
-
-  onSchedulerHeadMouseOut = () => {
-    this.currentArea = -1;
-  };
-
-  onSchedulerHeadScroll = (proxy, event) => {
-    if ((this.currentArea === 2 || this.currentArea === -1) && this.schedulerContent.scrollLeft !== this.schedulerHead.scrollLeft) {
-      this.schedulerContent.scrollLeft = this.schedulerHead.scrollLeft;
-    }
-  };
-
-  schedulerResourceRef = element => {
-    this.schedulerResource = element;
-  };
-
-  onSchedulerResourceMouseOver = () => {
-    this.currentArea = 1;
-  };
-
-  onSchedulerResourceMouseOut = () => {
-    this.currentArea = -1;
-  };
-
-  onSchedulerResourceScroll = (proxy, event) => {
-    if (this.schedulerResource) {
-      if ((this.currentArea === 1 || this.currentArea === -1) && this.schedulerContent.scrollTop !== this.schedulerResource.scrollTop) {
-        this.schedulerContent.scrollTop = this.schedulerResource.scrollTop;
-      }
-    }
-  };
-
-  schedulerContentRef = element => {
-    this.schedulerContent = element;
-  };
-
-  schedulerContentBgTableRef = element => {
-    this.schedulerContentBgTable = element;
-  };
-
-  onSchedulerContentMouseOver = () => {
-    this.currentArea = 0;
-  };
-
-  onSchedulerContentMouseOut = () => {
-    this.currentArea = -1;
-  };
-
-  onSchedulerContentScroll = (proxy, event) => {
-    if (this.schedulerResource) {
-      if (this.currentArea === 0 || this.currentArea === -1) {
-        if (this.schedulerHead.scrollLeft !== this.schedulerContent.scrollLeft) this.schedulerHead.scrollLeft = this.schedulerContent.scrollLeft;
-        if (this.schedulerResource.scrollTop !== this.schedulerContent.scrollTop) this.schedulerResource.scrollTop = this.schedulerContent.scrollTop;
-      }
-    }
-
-    const { schedulerData, onScrollLeft, onScrollRight, onScrollTop, onScrollBottom } = this.props;
-    if (this.schedulerContent.scrollLeft !== this.scrollLeft) {
-      if (this.schedulerContent.scrollLeft === 0 && onScrollLeft !== undefined) {
-        onScrollLeft(schedulerData, this.schedulerContent, this.schedulerContent.scrollWidth - this.schedulerContent.clientWidth);
-      }
-      if (Math.round(this.schedulerContent.scrollLeft) === this.schedulerContent.scrollWidth - this.schedulerContent.clientWidth && onScrollRight !== undefined) {
-        onScrollRight(schedulerData, this.schedulerContent, this.schedulerContent.scrollWidth - this.schedulerContent.clientWidth);
-      }
-    } else if (this.schedulerContent.scrollTop !== this.scrollTop) {
-      if (this.schedulerContent.scrollTop === 0 && onScrollTop !== undefined) {
-        onScrollTop(schedulerData, this.schedulerContent, this.schedulerContent.scrollHeight - this.schedulerContent.clientHeight);
-      }
-      if (Math.round(this.schedulerContent.scrollTop) === this.schedulerContent.scrollHeight - this.schedulerContent.clientHeight && onScrollBottom !== undefined) {
-        onScrollBottom(schedulerData, this.schedulerContent, this.schedulerContent.scrollHeight - this.schedulerContent.clientHeight);
-      }
-    }
-    this.scrollLeft = this.schedulerContent.scrollLeft;
-    this.scrollTop = this.schedulerContent.scrollTop;
-  };
-
-  onViewChange = e => {
-    const { onViewChange, schedulerData } = this.props;
-    const viewType = parseInt(e.target.value.charAt(0));
-    const showAgenda = e.target.value.charAt(1) === '1';
-    const isEventPerspective = e.target.value.charAt(2) === '1';
-    onViewChange(schedulerData, { viewType, showAgenda, isEventPerspective });
-    this.setState({ ...this.state, spinning: false });
-  };
-
-  goNext = () => {
-    const { nextClick, schedulerData } = this.props;
-    nextClick(schedulerData);
-  };
-
-  goBack = () => {
-    const { prevClick, schedulerData } = this.props;
-    prevClick(schedulerData);
-  };
-
-  onSelect = date => {
-    const { onSelectDate, schedulerData } = this.props;
-    onSelectDate(schedulerData, date);
-  };
 }
+
+Scheduler.propTypes = {
+  parentRef: PropTypes.object,
+  schedulerData: PropTypes.object.isRequired,
+  prevClick: PropTypes.func.isRequired,
+  nextClick: PropTypes.func.isRequired,
+  onViewChange: PropTypes.func.isRequired,
+  onSelectDate: PropTypes.func.isRequired,
+  onSetAddMoreState: PropTypes.func,
+  updateEventStart: PropTypes.func,
+  updateEventEnd: PropTypes.func,
+  moveEvent: PropTypes.func,
+  movingEvent: PropTypes.func,
+  leftCustomHeader: PropTypes.object,
+  rightCustomHeader: PropTypes.object,
+  newEvent: PropTypes.func,
+  subtitleGetter: PropTypes.func,
+  eventItemClick: PropTypes.func,
+  viewEventClick: PropTypes.func,
+  viewEventText: PropTypes.string,
+  viewEvent2Click: PropTypes.func,
+  viewEvent2Text: PropTypes.string,
+  conflictOccurred: PropTypes.func,
+  eventItemTemplateResolver: PropTypes.func,
+  dndSources: PropTypes.array,
+  slotClickedFunc: PropTypes.func,
+  toggleExpandFunc: PropTypes.func,
+  slotItemTemplateResolver: PropTypes.func,
+  nonAgendaCellHeaderTemplateResolver: PropTypes.func,
+  onScrollLeft: PropTypes.func,
+  onScrollRight: PropTypes.func,
+  onScrollTop: PropTypes.func,
+  onScrollBottom: PropTypes.func,
+};
 
 export default Scheduler;
 export { DATE_FORMAT, DATETIME_FORMAT, SchedulerData, ViewType, CellUnit, SummaryPos, DnDSource, DnDContext, AddMorePopover, DemoData, wrapperFun };

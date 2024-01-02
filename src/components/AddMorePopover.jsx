@@ -50,6 +50,7 @@ function AddMorePopover(props) {
           <span className="base-text">{header}</span>
         </Col>
         <Col span={2}>
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <button type="button" onClick={() => closeAction(undefined)}>
             <CloseOutlined />
           </button>

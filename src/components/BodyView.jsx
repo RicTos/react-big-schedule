@@ -24,6 +24,7 @@ function BodyView({ schedulerData }) {
           }
         }
         return (
+          // eslint-disable-next-line jsx-a11y/control-has-associated-label
           <td key={key} style={style}>
             <div />
           </td>
