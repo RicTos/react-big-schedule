@@ -730,8 +730,8 @@ export default class SchedulerData {
 
   _createHeaders() {
     const headers = [];
-    const start = this.localeDayjs(new Date(this.startDate));
-    const end = this.localeDayjs(new Date(this.endDate));
+    const start = this.localeDayjs(new Date(this.startDate)).startOf('day');
+    const end = this.localeDayjs(new Date(this.endDate)).endOf('day');
 
     const processHeader = (header, format, unit, incrementFn) => {
       let head = header;

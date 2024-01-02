@@ -15,7 +15,7 @@ class Basic extends Component {
 
     const schedulerData = new SchedulerData(
       "2022-12-02",
-      ViewType.Month,
+      ViewType.Day,
       false,
       false,
       {
@@ -28,7 +28,11 @@ class Basic extends Component {
         eventItemPopoverTrigger: "click",
         schedulerContentHeight: "350px",
         responsiveByParent: true,
-        
+        // dayStartFrom: 2, 
+        // dayStopTo: 10,
+         minuteStep: 60,
+        //  dayResourceTableWidth:10,
+         dayCellWidth: 60
       }
     );
 
