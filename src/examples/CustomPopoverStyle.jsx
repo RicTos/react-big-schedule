@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Button } from 'antd';
-import { Scheduler, SchedulerData, ViewType, DemoData, wrapperFun } from '../components/index';
+import Scheduler, { SchedulerData, ViewType, DemoData, wrapperFun } from '../components/index';
 
 class CustomPopoverStyle extends Component {
   constructor(props) {

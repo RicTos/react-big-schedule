@@ -105,7 +105,7 @@ class Scheduler extends Component {
     onScrollBottom: PropTypes.func,
   };
 
-  componentDidMount(props, state) {
+  componentDidMount() {
     const { schedulerData, parentRef } = this.props;
 
     this.resolveScrollbarSize();
@@ -130,7 +130,7 @@ class Scheduler extends Component {
     }
   }
 
-  componentDidUpdate(props, state) {
+  componentDidUpdate() {
     this.resolveScrollbarSize();
 
     const { schedulerData } = this.props;
@@ -445,4 +445,5 @@ class Scheduler extends Component {
   };
 }
 
-export { DATE_FORMAT, DATETIME_FORMAT, Scheduler, SchedulerData, ViewType, CellUnit, SummaryPos, DnDSource, DnDContext, AddMorePopover, DemoData, wrapperFun };
+export default Scheduler;
+export { DATE_FORMAT, DATETIME_FORMAT, SchedulerData, ViewType, CellUnit, SummaryPos, DnDSource, DnDContext, AddMorePopover, DemoData, wrapperFun };

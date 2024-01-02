@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
-import { SchedulerData, ViewType, DATE_FORMAT, DemoData, Scheduler, wrapperFun } from '../components/index';
+import Scheduler, { SchedulerData, ViewType, DATE_FORMAT, DemoData, wrapperFun } from '../components/index';
 import AddResourceForm from './AddResourceForm';
 
 class AddResource extends Component {

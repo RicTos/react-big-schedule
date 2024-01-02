@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SchedulerData, ViewType, DemoData, Scheduler, wrapperFun } from '../components/index';
+import Scheduler, { SchedulerData, ViewType, DemoData, wrapperFun } from '../components/index';
 
 class CustomEventStyle extends Component {
   constructor(props) {

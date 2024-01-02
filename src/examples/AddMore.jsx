@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Scheduler, SchedulerData, ViewType, AddMorePopover, DemoData, wrapperFun } from '../components/index';
+import Scheduler, { SchedulerData, ViewType, AddMorePopover, DemoData, wrapperFun } from '../components/index';
 
 class AddMore extends Component {
   constructor(props) {

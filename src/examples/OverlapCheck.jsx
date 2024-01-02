@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Scheduler, SchedulerData, ViewType, DemoData, wrapperFun } from '../components/index';
+import Scheduler, { SchedulerData, ViewType, DemoData, wrapperFun } from '../components/index';
 import '../css/style.css';
 
 class OverlapCheck extends Component {

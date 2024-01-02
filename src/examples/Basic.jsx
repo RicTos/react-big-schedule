@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as dayjsLocale from 'dayjs/locale/pt-br';
 import * as antdLocale from 'antd/locale/pt_BR';
 
-import { Scheduler, SchedulerData, ViewType, DemoData, wrapperFun } from '../index';
+import Scheduler, { SchedulerData, ViewType, DemoData, wrapperFun } from '../index';
 
 class Basic extends Component {
   constructor(props) {
@@ -31,27 +31,27 @@ class Basic extends Component {
   render() {
     const { viewModel } = this.state;
     return (
-      <Scheduler
-        schedulerData={viewModel}
-        prevClick={this.prevClick}
-        nextClick={this.nextClick}
-        onSelectDate={this.onSelectDate}
-        onViewChange={this.onViewChange}
-        // eventItemClick={this.eventClicked}
-        viewEventClick={this.ops1}
-        viewEventText="Ops 1"
-        viewEvent2Text="Ops 2"
-        viewEvent2Click={this.ops2}
-        updateEventStart={this.updateEventStart}
-        updateEventEnd={this.updateEventEnd}
-        moveEvent={this.moveEvent}
-        newEvent={this.newEvent}
-        onScrollLeft={this.onScrollLeft}
-        onScrollRight={this.onScrollRight}
-        onScrollTop={this.onScrollTop}
-        onScrollBottom={this.onScrollBottom}
-        toggleExpandFunc={this.toggleExpandFunc}
-      />
+        <Scheduler
+          schedulerData={viewModel}
+          prevClick={this.prevClick}
+          nextClick={this.nextClick}
+          onSelectDate={this.onSelectDate}
+          onViewChange={this.onViewChange}
+          // eventItemClick={this.eventClicked}
+          viewEventClick={this.ops1}
+          viewEventText="Ops 1"
+          viewEvent2Text="Ops 2"
+          viewEvent2Click={this.ops2}
+          updateEventStart={this.updateEventStart}
+          updateEventEnd={this.updateEventEnd}
+          moveEvent={this.moveEvent}
+          newEvent={this.newEvent}
+          onScrollLeft={this.onScrollLeft}
+          onScrollRight={this.onScrollRight}
+          onScrollTop={this.onScrollTop}
+          onScrollBottom={this.onScrollBottom}
+          toggleExpandFunc={this.toggleExpandFunc}
+          />
     );
   }
 

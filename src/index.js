@@ -1,7 +1,10 @@
+import Scheduler from './components/index';
+
+export default Scheduler;
+
 export {
   DATE_FORMAT,
   DATETIME_FORMAT,
-  Scheduler,
   SchedulerData,
   ViewType,
   CellUnit,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Scheduler, SchedulerData, ViewType, CellUnit, DemoData, wrapperFun, DATE_FORMAT } from '../components/index';
+import Scheduler, { SchedulerData, ViewType, CellUnit, DemoData, wrapperFun, DATE_FORMAT } from '../components/index';
 
 class CellUnitComponent extends Component {
   constructor(props) {

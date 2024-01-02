@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Scheduler, SchedulerData, ViewType, DemoData, wrapperFun } from '../components/index';
+import Scheduler, { SchedulerData, ViewType, DemoData, wrapperFun } from '../components/index';
 
 class CustomHeader extends Component {
   constructor(props) {
