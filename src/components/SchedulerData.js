@@ -795,6 +795,7 @@ export default class SchedulerData {
         slotTitle: slot.title,
         parentId: slot.parentId,
         groupOnly: slot.groupOnly,
+        leftComponent: slot.leftComponent,
         hasSummary: false,
         rowMaxCount: 0,
         rowHeight: this.config.nonAgendaSlotMinHeight !== 0 ? this.config.nonAgendaSlotMinHeight : this.config.eventItemLineHeight + 2,

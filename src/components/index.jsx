@@ -283,8 +283,7 @@ class Scheduler extends Component {
       const resourceEventsList = displayRenderData.map(item => <DndResourceEvents {...this.props} key={item.slotId} resourceEvents={item} dndSource={eventDndSource} />);
 
       const { contentScrollbarHeight, contentScrollbarWidth, resourceScrollbarHeight, resourceScrollbarWidth } = this.state;
-      const contentHeight = schedulerData.config.responsiveByParent && !!parentRef.current ? this.state.documentHeight - config.tableHeaderHeight - contentScrollbarHeight
-        : config.schedulerContentHeight;
+      const contentHeight = schedulerData.config.responsiveByParent && !!parentRef.current ? this.state.documentHeight - config.tableHeaderHeight : config.schedulerContentHeight;
       const resourcePaddingBottom = resourceScrollbarHeight === 0 ? contentScrollbarHeight : 0;
       const contentPaddingBottom = contentScrollbarHeight === 0 ? resourceScrollbarHeight : 0;
       let schedulerContentStyle = {
