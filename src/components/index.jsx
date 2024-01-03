@@ -282,10 +282,7 @@ class Scheduler extends Component {
       const displayRenderData = renderData.filter(o => o.render);
       const resourceEventsList = displayRenderData.map(item => <DndResourceEvents {...this.props} key={item.slotId} resourceEvents={item} dndSource={eventDndSource} />);
 
-      const { contentScrollbarHeight } = this.state;
-      const { contentScrollbarWidth } = this.state;
-      const { resourceScrollbarHeight } = this.state;
-      const { resourceScrollbarWidth } = this.state;
+      const { contentScrollbarHeight, contentScrollbarWidth, resourceScrollbarHeight, resourceScrollbarWidth } = this.state;
       const contentHeight = config.schedulerContentHeight;
       const resourcePaddingBottom = resourceScrollbarHeight === 0 ? contentScrollbarHeight : 0;
       const contentPaddingBottom = contentScrollbarHeight === 0 ? resourceScrollbarHeight : 0;
@@ -320,7 +317,7 @@ class Scheduler extends Component {
         <tr>
           <td style={{ display: config.resourceViewEnabled ? undefined : 'none', width: resourceTableWidth, verticalAlign: 'top' }}>
             <div className="resource-view">
-              <div style={{ overflow: 'hidden', borderBottom: '1px solid #e9e9e9', height: config.tableHeaderHeight }}>
+              <div className="resource-view-header" style={{ overflow: 'hidden', height: config.tableHeaderHeight }}>
                 <div style={{ overflowX: 'scroll', overflowY: 'hidden', margin: `0px 0px -${contentScrollbarHeight}px` }}>
                   <table className="resource-table">
                     <thead>
@@ -345,7 +342,7 @@ class Scheduler extends Component {
           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <td>
             <div className="scheduler-view" style={{ width: schedulerContainerWidth, verticalAlign: 'top' }}>
-              <div style={{ overflow: 'hidden', borderBottom: '1px solid #e9e9e9', height: config.tableHeaderHeight }}>
+              <div className="scheduler-view-header" style={{ overflow: 'hidden', height: config.tableHeaderHeight }}>
                 <div
                   style={{ overflowX: 'scroll', overflowY: 'hidden', margin: `0px 0px -${contentScrollbarHeight}px` }}
                   ref={this.schedulerHeadRef}
