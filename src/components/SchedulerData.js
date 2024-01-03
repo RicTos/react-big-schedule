@@ -754,7 +754,7 @@ export default class SchedulerData {
       headers.push({ time: start.format(DATETIME_FORMAT), nonWorkingTime: false });
     } else if (this.cellUnit === CellUnit.Hour) {
       const hourIncrement = this.config.minuteStep < 60 ? 'minutes' : 'hours';
-      const minuteSteps = this.getMinuteStepsInHour();
+      const minuteSteps = this.config.minuteStep < 60 ? this.config.minuteStep : this.getMinuteStepsInHour();
       let header = start.hour() === 0 ? start.add(this.config.dayStartFrom, 'hours') : start;
       while (header <= end) {
         const hour = header.hour();

@@ -30,10 +30,10 @@ class Basic extends Component {
         responsiveByParent: true,
         // dayStartFrom: 2, 
         // dayStopTo: 10,
-         minuteStep: 60,
+        minuteStep: 60,
         //  dayResourceTableWidth:10,
-         dayCellWidth: 60,
-         nonAgendaWeekCellHeaderFormat: "ww/YYYY"
+        dayCellWidth: 60,
+        nonAgendaDayCellHeaderFormat: 'HH:mm',
       }
     );
 
