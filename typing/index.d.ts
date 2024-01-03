@@ -11,8 +11,8 @@ export interface SchedulerProps<EventType extends EventItem = EventItem> {
   schedulerData: SchedulerData<EventType>;
   prevClick(schedulerData: SchedulerData<EventType>): void;
   nextClick(schedulerData: SchedulerData<EventType>): void;
-  onSelectDate(schedulerData: SchedulerData<EventType>, date: string): void;
-  onViewChange(schedulerData: SchedulerData<EventType>, view: View): void;
+  onSelectDate?: (schedulerData: SchedulerData<EventType>, date: string) => void;
+  onViewChange?: (schedulerData: SchedulerData<EventType>, view: View) => void;
   eventItemClick?: (schedulerData: SchedulerData<EventType>, event: EventType) => void;
   eventItemTemplateResolver?: (
     schedulerData: SchedulerData<EventType>,

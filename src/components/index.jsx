@@ -419,8 +419,8 @@ Scheduler.propTypes = {
   schedulerData: PropTypes.object.isRequired,
   prevClick: PropTypes.func.isRequired,
   nextClick: PropTypes.func.isRequired,
-  onViewChange: PropTypes.func.isRequired,
-  onSelectDate: PropTypes.func.isRequired,
+  onViewChange: PropTypes.func,
+  onSelectDate: PropTypes.func,
   onSetAddMoreState: PropTypes.func,
   updateEventStart: PropTypes.func,
   updateEventEnd: PropTypes.func,
@@ -446,6 +446,11 @@ Scheduler.propTypes = {
   onScrollRight: PropTypes.func,
   onScrollTop: PropTypes.func,
   onScrollBottom: PropTypes.func,
+};
+
+Scheduler.defaultProps = {
+  onViewChange: () => { },
+  onSelectDate: () => { },
 };
 
 export default Scheduler;
