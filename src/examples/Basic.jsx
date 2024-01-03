@@ -26,7 +26,6 @@ class Basic extends Component {
         yearMaxEvents: 9956,
         customMaxEvents: 9965,
         eventItemPopoverTrigger: "click",
-        schedulerContentHeight: "350px",
         responsiveByParent: true,
         // dayStartFrom: 2, 
         // dayStopTo: 10,
@@ -60,7 +59,7 @@ class Basic extends Component {
     return (
       <div
         ref={this.divRef}
-        style={{ flex:1 }}
+        style={{ height: 800, backgroundColor:"lightblue", width:900 }}
       >
         {this.state.mounted && (
           <Scheduler 

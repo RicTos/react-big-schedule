@@ -265,7 +265,7 @@ class Scheduler extends Component {
   };
 
   render() {
-    const { schedulerData, leftCustomHeader, rightCustomHeader } = this.props;
+    const { schedulerData, leftCustomHeader, rightCustomHeader, parentRef } = this.props;
     const { viewType, renderData, showAgenda, config } = schedulerData;
     const width = schedulerData.getSchedulerWidth();
 
@@ -283,7 +283,8 @@ class Scheduler extends Component {
       const resourceEventsList = displayRenderData.map(item => <DndResourceEvents {...this.props} key={item.slotId} resourceEvents={item} dndSource={eventDndSource} />);
 
       const { contentScrollbarHeight, contentScrollbarWidth, resourceScrollbarHeight, resourceScrollbarWidth } = this.state;
-      const contentHeight = config.schedulerContentHeight;
+      const contentHeight = schedulerData.config.responsiveByParent && !!parentRef.current ? this.state.documentHeight - config.tableHeaderHeight - contentScrollbarHeight
+        : config.schedulerContentHeight;
       const resourcePaddingBottom = resourceScrollbarHeight === 0 ? contentScrollbarHeight : 0;
       const contentPaddingBottom = contentScrollbarHeight === 0 ? resourceScrollbarHeight : 0;
       let schedulerContentStyle = {
