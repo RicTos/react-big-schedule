@@ -27,12 +27,12 @@ class Basic extends Component {
         customMaxEvents: 9965,
         eventItemPopoverTrigger: "click",
         responsiveByParent: true,
-        // dayStartFrom: 2, 
+        // dayStartFrom: 2,
         // dayStopTo: 10,
         minuteStep: 60,
         //  dayResourceTableWidth:10,
         dayCellWidth: 60,
-        nonAgendaDayCellHeaderFormat: 'HH:mm',
+        nonAgendaDayCellHeaderFormat: "HH:mm",
       }
     );
 
@@ -50,20 +50,17 @@ class Basic extends Component {
   }
 
   componentDidMount() {
-    this.setState(prevState => ({ ...prevState, mounted: true }));
+    this.setState((prevState) => ({ ...prevState, mounted: true }));
   }
 
   render() {
     const { viewModel } = this.state;
 
     return (
-      <div
-        ref={this.divRef}
-        style={{ height: 800, backgroundColor:"lightblue", width:900 }}
-      >
+      <div ref={this.divRef} style={{ height: 1000 }}>
         {this.state.mounted && (
-          <Scheduler 
-            parentRef= {this.divRef}
+          <Scheduler
+            parentRef={this.divRef}
             schedulerData={viewModel}
             prevClick={this.prevClick}
             nextClick={this.nextClick}
